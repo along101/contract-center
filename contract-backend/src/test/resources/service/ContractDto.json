@@ -1,0 +1,10 @@
+{
+  "name": "contract1",
+  "service_name": "contractApi",
+  "rpc_method_name": "create",
+  "status": 0,
+  "org_id": 1,
+  "content": "protobuf",
+  "descriptions": "",
+  "is_active": true
+}

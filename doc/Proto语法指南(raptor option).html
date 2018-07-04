@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ProtoBuf 语法指南</title>
+</head>
+<body>
+<div>
+    <h2>Proto 语法指南 – raptor版本</h2>
+    <h3>Raptor 自定义注解介绍</h3>
+    <p>Raptor 自定义了一些注解, 用来记录一些元信息,使 raptor-codegen 生成定制程度比较高的代码.</p>
+    <p>对此,我们提供了一个<a href="/#/appSummary?appId=contract-center-demo">例子</a>.</p>
+    <h4>FileOptions</h4>
+    <p>FileOptions 用来定义整个proto一些信息,他们包括:</p>
+    <ul>
+        <li>appId – proto文件所在应用的appId</li>
+        <li>appName – proto文件所在引用的应用名</li>
+        <li>version – proto文件的版本号(和契约中心的版本概念无关)Â</li>
+        <li>summary – proto文件的概要说明</li>
+    </ul>
+    <p>在契约中心中,appId是必填项.appId必须和proto文件所在的应用匹配,否则proto文件无法发布.</p>
+    <p>appId和appName可以作为寻找服务配置的key具体见 [Raptor客户端配置].</p>
+    <h4>ServiceOptions</h4>
+    <p>目前ServiceOptions就一个: <strong>servicePath</strong>.这个option用于定义该service公共的url前缀,类似于在Contoller类上的@RequestMapping注解.</p>
+    <h4>MethodOptions</h4>
+    <p>MethodOption 是定义在每一个rpc方法中的option,他们包括:</p>
+    <ul>
+        <li>method – 指定调用该rpc的http method</li>
+        <li>path – 指定方法的url,类似于在Contoller类方法上的@RequestMapping注</li>
+    </ul>
+</div>
+
+</body>
+</html>

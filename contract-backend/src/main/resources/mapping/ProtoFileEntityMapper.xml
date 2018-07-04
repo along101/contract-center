@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.along101.contract.dao.ProtoFileEntityMapper">
+    <resultMap id="BaseResultMap" type="com.along101.contract.entity.ProtoFileEntity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="package_name" property="packageName" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="appid" property="appid" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="BIGINT"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_by" property="insertBy" jdbcType="VARCHAR"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="is_active" property="isActive" jdbcType="BIT"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.along101.contract.entity.ProtoFileEntity" extends="BaseResultMap">
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, package_name, status, appid,summary, org_id, description, insert_time, update_time,
+    insert_by, update_by, is_active
+  </sql>
+    <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from proto_file
+    where id = #{id,jdbcType=BIGINT}
+    and is_active=1
+  </select>
+  <delete id="deleteByPrimaryKeyAndAppId" parameterType="java.util.Map" >
+    update proto_file set is_active = 0
+    where id = #{id,jdbcType=BIGINT}
+    and appid = #{appid,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.along101.contract.entity.ProtoFileEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into proto_file (id, name, package_name,
+      status, appid, summary,org_id,
+      description, insert_time, update_time,
+      insert_by, update_by, is_active,
+      content)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{packageName,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR},#{summary,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT},
+      #{description,jdbcType=VARCHAR}, NOW(),NOW(),
+      #{insertBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{isActive,jdbcType=BIT},
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.along101.contract.entity.ProtoFileEntity">
+        insert into proto_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="packageName != null">
+                package_name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="appid != null">
+                appid,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="insertTime != null">
+                insert_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="insertBy != null">
+                insert_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="isActive != null">
+                is_active,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="appid != null">
+                #{appid,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="insertTime != null">
+                #{insertTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="insertBy != null">
+                #{insertBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null">
+                #{isActive,jdbcType=BIT},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.along101.contract.entity.ProtoFileEntity">
+        update proto_file
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                package_name = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="appid != null">
+                appid = #{appid,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="insertTime != null">
+                insert_time = #{insertTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="insertBy != null">
+                insert_by = #{insertBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null">
+                is_active = #{isActive,jdbcType=BIT},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.along101.contract.entity.ProtoFileEntity">
+    update proto_file
+    set name = #{name,jdbcType=VARCHAR},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      appid = #{appid,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_by = #{insertBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=BIT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.along101.contract.entity.ProtoFileEntity">
+    update proto_file
+    set name = #{name,jdbcType=VARCHAR},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      appid = #{appid,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_by = #{insertBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findContractsByAppid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from proto_file
+    where appid = #{appid,jdbcType=VARCHAR}
+    and is_active=1
+  </select>
+
+  <select id="findContractsByCondition" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from proto_file
+    where rpc_method_name LIKE concat(concat('%',#{rpcMethodName, jdbcType=VARCHAR}),'%') AND insert_by LIKE
+    concat(concat('%',#{insertBy, jdbcType=VARCHAR}),'%')
+    and is_active = 1
+
+  </select>
+
+    <select id="queryAll" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from proto_file
+        where is_active = 1;
+    </select>
+    <select id="queryByAppId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from proto_file
+        where is_active = 1
+        and appid = #{appid};
+    </select>
+    <select id="findByPackageAndNameAndAppId" parameterType="com.along101.contract.entity.ProtoFileEntity" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from proto_file
+        where  appid = #{appid}
+        and package_name=#{packageName}
+        and name=#{name}
+    </select>
+    <update id="changeStatus" parameterType="java.util.Map" >
+        update proto_file set status = #{status} where id in
+
+        <foreach collection="ids"
+                 item="id"
+                 open="("
+                 close=")"
+                 separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="queryByIdsAndAppId" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from proto_file
+        where is_active = 1
+        and appid = #{appId}
+        and id in
+        <foreach collection="protoIds"
+                 item="id"
+                 open="("
+                 close=")"
+                 separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+</mapper>

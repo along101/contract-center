@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.along101.contract.dao.AuditLogEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.along101.contract.entity.AuditLogEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="class_method" property="classMethod" jdbcType="VARCHAR" />
+    <result column="class_method_args" property="classMethodArgs" jdbcType="VARCHAR" />
+    <result column="class_method_return" property="classMethodReturn" jdbcType="VARCHAR" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="http_method" property="httpMethod" jdbcType="VARCHAR" />
+    <result column="http_uri" property="httpUri" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="is_active" property="isActive" jdbcType="BIT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, class_method, class_method_args, class_method_return, client_ip, http_method, 
+    http_uri, insert_time, is_active, update_time, user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from audit_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from audit_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.along101.contract.entity.AuditLogEntity" >
+    insert into audit_log (id, class_method, class_method_args, 
+      class_method_return, client_ip, http_method, 
+      http_uri, is_active, user_name)
+    values (#{id,jdbcType=BIGINT}, #{classMethod,jdbcType=VARCHAR}, #{classMethodArgs,jdbcType=VARCHAR}, 
+      #{classMethodReturn,jdbcType=VARCHAR}, #{clientIp,jdbcType=VARCHAR}, #{httpMethod,jdbcType=VARCHAR}, 
+      #{httpUri,jdbcType=VARCHAR},  #{isActive,jdbcType=BIT},  #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.along101.contract.entity.AuditLogEntity" >
+    insert into audit_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="classMethod != null" >
+        class_method,
+      </if>
+      <if test="classMethodArgs != null" >
+        class_method_args,
+      </if>
+      <if test="classMethodReturn != null" >
+        class_method_return,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="httpMethod != null" >
+        http_method,
+      </if>
+      <if test="httpUri != null" >
+        http_uri,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="classMethod != null" >
+        #{classMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="classMethodArgs != null" >
+        #{classMethodArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="classMethodReturn != null" >
+        #{classMethodReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null" >
+        #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUri != null" >
+        #{httpUri,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=BIT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.along101.contract.entity.AuditLogEntity" >
+    update audit_log
+    <set >
+      <if test="classMethod != null" >
+        class_method = #{classMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="classMethodArgs != null" >
+        class_method_args = #{classMethodArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="classMethodReturn != null" >
+        class_method_return = #{classMethodReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null" >
+        http_method = #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUri != null" >
+        http_uri = #{httpUri,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isActive != null" >
+        is_active = #{isActive,jdbcType=BIT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.along101.contract.entity.AuditLogEntity" >
+    update audit_log
+    set class_method = #{classMethod,jdbcType=VARCHAR},
+      class_method_args = #{classMethodArgs,jdbcType=VARCHAR},
+      class_method_return = #{classMethodReturn,jdbcType=VARCHAR},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      http_method = #{httpMethod,jdbcType=VARCHAR},
+      http_uri = #{httpUri,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      is_active = #{isActive,jdbcType=BIT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
